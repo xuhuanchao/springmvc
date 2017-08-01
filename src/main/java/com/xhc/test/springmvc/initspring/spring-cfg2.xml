@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+            http://www.springframework.org/schema/mvc  
+            http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+            http://www.springframework.org/schema/cache
+            http://www.springframework.org/schema/cache/spring-cache-4.0.xsd"
+    >
+
+    <bean id="bomb" class="com.xhc.test.springmvc.initspring.Bomb" factory-method="getInstance">
+    </bean>
+
+    <bean id="plane" class="com.xhc.test.springmvc.initspring.Plane">
+        <constructor-arg name="name" value="波音747"/>
+        <constructor-arg name="length" value="200.30" />
+        <constructor-arg name="bomb" ref="bomb"/>
+    </bean>
+    
+    <bean id="planeFactory" class="com.xhc.test.springmvc.initspring.PlaneFactory" />
+    
+    <bean id="plane2" class="com.xhc.test.springmvc.initspring.Plane" factory-bean="planeFactory" factory-method="createPlane" >
+        <constructor-arg value="歼-20"></constructor-arg>
+    </bean>
+    
+</beans>
