@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.MatrixVariable;
@@ -67,6 +69,8 @@ import com.xhc.test.springmvc.springmvc.domain.Product;
 @org.springframework.stereotype.Controller
 public class TestController {
 
+    private static final Log logger = LogFactory.getLog(TestController.class);
+    
     @RequestMapping(value="/test", method={RequestMethod.POST , RequestMethod.GET})
     public String test (HttpServletRequest request, HttpServletResponse response, String param) {
         request.setAttribute("param", param + "_test");
@@ -74,8 +78,9 @@ public class TestController {
     }
 
     @ModelAttribute
-    public Product modelAttr (String param) {
+    public Product addProduct1 (String param) {
         Product p = new Product(param ==null? "默认产品1" : param, "return Product", 199.9f);
+        logger.info("addProduct1 run");
         return p;
     }
     
@@ -85,6 +90,7 @@ public class TestController {
         Map m = new HashMap();
         m.put("default2", p);
         model.addAllAttributes(m);
+        logger.info("addProduct2 run");
     }
     
     /**

@@ -21,7 +21,7 @@
                 可以取出request.setAttribute("test", "123");中的值<br/>
     </p>
     <p>
-        $ {param.test}<br/>
+        \${param.test}<br/>
         <c:out value="< %=request.getParameter('test')"/><br/>
                 可以取出URL的参数
     </p>

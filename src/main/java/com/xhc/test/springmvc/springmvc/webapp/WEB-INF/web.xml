@@ -23,6 +23,18 @@
             <param-value>/WEB-INF/config/springmvc-config.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+        <!-- 
+                    开启Servlet 3的 @MultipartConfig 功能，提供上传文件支持 
+          maxFileSize : 上传文件最大容量，默认-1无限大
+          maxRequestSize : 多部分http请求允许的最大容量，默认-1无限大
+          loaction : Part.write() 时保存文件到磁盘的位置
+          fileSizeThreshold : 上传文件超出此值，将自动写入磁盘
+        -->
+        <multipart-config>
+            <max-file-size>20838820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
