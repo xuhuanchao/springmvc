@@ -23,7 +23,7 @@ public class Html5FileUploadController {
     
     @RequestMapping(value = "/html5")
     public String inputProduct() {
-        return "Html5";
+        return "html5";
     }
     
     @RequestMapping(value = "/file_upload")
@@ -35,6 +35,10 @@ public class Html5FileUploadController {
         String fileName = multipartFile.getOriginalFilename();
         
         try {
+            File catalog = new File(servletRequest.getServletContext().getRealPath("/file"));
+            if(!catalog.exists()){
+                catalog.mkdirs();
+            }
             File file = new File(servletRequest.getServletContext().getRealPath("/file"), fileName);
             multipartFile.transferTo(file);
         } catch (IllegalStateException | IOException e ) {
