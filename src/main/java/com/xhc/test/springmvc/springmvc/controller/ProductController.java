@@ -11,6 +11,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,14 +33,15 @@ public class ProductController {
     private ProductService productService;
     
     @RequestMapping(value = "/product_input")
-    public String inputProduct() {
+    public String inputProduct(@ModelAttribute Product product) {
         logger.info("inputProduct called");
         return "ProductForm";
     }
     
     
     @RequestMapping(value = "/product_save", method=RequestMethod.POST)
-    public String saveProduct(ProductForm productForm, RedirectAttributes redirectAttributes, HttpServletRequest request ) {
+    public String saveProduct(Product product, Model model, 
+            BindingResult bindingResult, HttpServletRequest request ) throws Exception {
         logger.info("saveProduct called");
         
         try {
@@ -46,17 +50,15 @@ public class ProductController {
             e.printStackTrace();
         }
         
-        Product p = new Product();
-        p.setName(productForm.getName());
-        p.setDescription(productForm.getDescription());
-        try {
-            p.setPrice(Float.parseFloat(productForm.getPrice()));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        ProductValidator pv = new ProductValidator();
+        pv.validate(product, bindingResult);
+        if(bindingResult.hasErrors()){
+            FieldError fieldError = bindingResult.getFieldError();
+            logger.info("Code:" + fieldError.getCode() + " , field:" + fieldError.getField());
+            return "ProductForm";
         }
-        Product savedP = productService.add(p);
-        redirectAttributes.addFlashAttribute("message", "The product was successfully added.");
-        return "redirect:/product_view/" + savedP.getId();
+        Product savedP = productService.add(product);
+        return "ProductDetails";
     }
     
     @RequestMapping(value = "/product_view/{id}")

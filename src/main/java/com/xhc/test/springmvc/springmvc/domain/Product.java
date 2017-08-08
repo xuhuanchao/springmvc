@@ -1,6 +1,7 @@
 package com.xhc.test.springmvc.springmvc.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Product implements Serializable {
 
@@ -9,8 +10,8 @@ public class Product implements Serializable {
     private long id;
     private String name;
     private String description;
-    private float price;
-    
+    private Float price;
+    private Date productionDate;
     
     public Product() {
         super();
@@ -43,10 +44,10 @@ public class Product implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -56,6 +57,14 @@ public class Product implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
     }
     
     

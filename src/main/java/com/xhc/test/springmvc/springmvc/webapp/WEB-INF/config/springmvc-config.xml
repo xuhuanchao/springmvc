@@ -43,6 +43,8 @@
                 <bean class="com.xhc.test.springmvc.springmvc.formatter.DateFormatter">
                     <constructor-arg type="java.lang.String" value="MM-dd-yyyy"></constructor-arg>
                 </bean>
+                <bean class="com.xhc.test.springmvc.springmvc.formatter.FloatFormatter">
+                </bean>
             </set>
         </property>
     </bean>
@@ -61,6 +63,12 @@
     
     <!-- 上传文件支持多部分解析器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
+    
+    <!-- springmvc 验证时错误信息 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/resource/messages"></property>
+    </bean>
+    
     
     <bean name="testController" class="com.xhc.test.springmvc.springmvc.controller.TestController"/>	
 	
