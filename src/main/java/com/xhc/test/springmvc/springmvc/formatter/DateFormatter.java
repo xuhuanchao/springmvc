@@ -22,6 +22,7 @@ public class DateFormatter implements Formatter<Date> {
     @Override
     public Date parse(String text, Locale locale) throws ParseException {
         try {
+            dateFormat.setLenient(false);
             return dateFormat.parse(text);
         } catch (Exception e) {
             e.printStackTrace();

@@ -30,13 +30,13 @@
     <context:component-scan base-package="com.xhc.test.springmvc.springmvc.controller"></context:component-scan>
     <context:component-scan base-package="com.xhc.test.springmvc.springmvc.service"></context:component-scan>
     
-    
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix" value="/WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
     
     
+    <!-- 数据绑定时使用 formatter 做类型转换 -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
@@ -46,6 +46,18 @@
             </set>
         </property>
     </bean>
+    
+    <!-- 数据绑定时使用 converter 做类型转换 -->
+    <!-- <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.xhc.test.springmvc.springmvc.converter.StringToDateConverter">
+                    <constructor-arg type="java.lang.String" value="MM-dd-yyyy"></constructor-arg>
+                </bean>
+            </list>
+        </property>
+    </bean> -->
+    
     
     <!-- 上传文件支持多部分解析器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>

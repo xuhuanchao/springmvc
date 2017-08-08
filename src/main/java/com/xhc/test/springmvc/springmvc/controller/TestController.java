@@ -61,7 +61,10 @@ import com.xhc.test.springmvc.springmvc.domain.Product;
     DeferredResult
     其他任意类型，Spring将其视作输出给View的对象模型
      
-   @ModelAttribute 
+   @ModelAttribute 来访问和修改Model
+   1. 方法(@ModelAttribute("name") Order order) 会将order以name为key添加到Model中，没有name默认使用order为key
+   2. 用@ModelAttribute标注非请求处理方法时，每次在该Controller类中有请求方法被调用前，都会先执行@ModelAttribute标注的方法
+   @ModelAttribute标注的方法返回值会添加到Model中，若@ModelAttribute标注的方法没有返回值，必须在方法参数中有Model参数  
      
  * @author xhc
  *
