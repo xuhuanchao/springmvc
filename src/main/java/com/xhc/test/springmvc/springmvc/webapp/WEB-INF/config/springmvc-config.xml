@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+            http://www.springframework.org/schema/mvc  
+            http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd "
+	default-lazy-init="true">
+    
+    <!-- 
+        resources 设置springmvc 对静态资源不经过dispathcer servlet处理
+                使用resources 会阻止控制器被调用，需要添加<mvc:annotation-driven/>
+                不使用 resoures 则可以不用<mvc:annotation-driven/>
+        
+        conversion-service : 值转换        
+     -->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <mvc:resources location="/css/" mapping="/css/*"/>
+    <mvc:resources location="/*.html" mapping="/"/>
+    
+    
+    <context:component-scan base-package="com.xhc.test.springmvc.springmvc.controller"></context:component-scan>
+    <context:component-scan base-package="com.xhc.test.springmvc.springmvc.service"></context:component-scan>
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    
+    <!-- 数据绑定时使用 formatter 做类型转换 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.xhc.test.springmvc.springmvc.formatter.DateFormatter">
+                    <constructor-arg type="java.lang.String" value="MM-dd-yyyy"></constructor-arg>
+                </bean>
+                <bean class="com.xhc.test.springmvc.springmvc.formatter.FloatFormatter">
+                </bean>
+            </set>
+        </property>
+    </bean>
+    
+    <!-- 数据绑定时使用 converter 做类型转换 -->
+    <!-- <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.xhc.test.springmvc.springmvc.converter.StringToDateConverter">
+                    <constructor-arg type="java.lang.String" value="MM-dd-yyyy"></constructor-arg>
+                </bean>
+            </list>
+        </property>
+    </bean> -->
+    
+    
+    <!-- 上传文件支持多部分解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
+    
+    <!-- springmvc 验证时错误信息 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/resource/messages"></property>
+    </bean>
+    
+    
+    <bean name="testController" class="com.xhc.test.springmvc.springmvc.controller.TestController"/>	
+	
+</beans>

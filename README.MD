@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ##Basic function of spring mvc.
 Most of the content comes from <Srping MVC 学习指南>.
 
@@ -13,3 +14,4 @@ spring依赖注入的测试用例bean的代码
 
 ###com.xhc.test.springmvc.ws
 webService的代码，使用cxf和spring集成
+
