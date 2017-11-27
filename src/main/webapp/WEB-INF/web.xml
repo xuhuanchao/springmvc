@@ -10,9 +10,31 @@
     <welcome-file-list>  
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>  
-    </welcome-file-list> 
-    
-    
+    </welcome-file-list>
+
+    <!-- 加载Spring容器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- CXF的Servlet -->
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- 本系统的WebService路径必须以/ws/开头 -->
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- 自定义servlet -->
     <servlet>
         <servlet-name>decoupController</servlet-name>
         <servlet-class>com.xhc.test.springmvc.decoupcontroller.servlet.DispatcherServlet</servlet-class>

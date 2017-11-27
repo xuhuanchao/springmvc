@@ -28,11 +28,11 @@ public class Main {
         String path = "com/xhc/test/springmvc/initspring/";
         
         
-//        ApplicationContext context = new ClassPathXmlApplicationContext(
-//                new String[]{path+"spring-cfg1.xml", path+"spring-cfg2.xml"});
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[]{path+"spring-cfg1.xml", path+"spring-cfg2.xml"});
         
-        AbstractApplicationContext context = new FileSystemXmlApplicationContext(
-                new String[]{classpath+path+"spring-cfgall.xml"}); 
+//        AbstractApplicationContext context = new FileSystemXmlApplicationContext(
+//                new String[]{classpath+path+"spring-cfgall.xml"}); 
                 
         
         
